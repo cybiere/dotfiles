@@ -1,0 +1,90 @@
+Xft.dpi: 175
+Xft.autohint: 0
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+
+urxvt.scrollBar: false
+
+URxvt.depth: 32
+URxvt.transparent: false
+URxvt.fading: 0
+URxvt.loginShell: true
+URxvt.saveLines: 20000
+URxvt.internalBorder: 3
+URxvt.lineSpace: 0
+
+!URxvt*background: #101010
+!*foreground: #CCCCCC
+!URxvt*color0: #101010
+!URxvt*color1: #960050
+!URxvt*color2: #66aa11
+!URxvt*color3: #c47f2c
+!URxvt*color4: #30309b
+!URxvt*color5: #7e40a5
+!URxvt*color6: #3579a8
+!URxvt*color7: #9999aa
+!URxvt*color8: #303030
+!URxvt*color9: #ff0090
+!URxvt*color10: #80ff00
+!URxvt*color11: #ffba68
+!URxvt*color12: #5f5fee
+!URxvt*color13: #bb88dd
+!URxvt*color14: #4eb4fa
+!URxvt*color15: #d0d0d0
+
+URxvt.iconFile:    /usr/share/icons/Clarity/scalable/apps/terminal.svg
+
+!URxvt*font: xft:DejaVu Sans Mono:pixelsize=20:antialias=true:hinting=true
+URxvt*font: xft:DejaVu Sans Mono for Powerline:pixelsize=24:antialias=true:hinting=true
+!URxvt*boldFont: xft:DejaVu Sans Mono:bold:pixelsize=20:antialias=true:hinting=true
+URxvt*boldFont: xft:DejaVu Sans Mono for Powerline:bold:pixelsize=24:antialias=true:hinting=true
+! Copyright (c) 2016-present Arctic Ice Studio <development@arcticicestudio.com>
+! Copyright (c) 2016-present Sven Greb <code@svengreb.de>
+
+! Project:    Nord XResources
+! Version:    0.1.0
+! Repository: https://github.com/arcticicestudio/nord-xresources
+! License:    MIT
+
+#define nord0 #2E3440
+#define nord1 #3B4252
+#define nord2 #434C5E
+#define nord3 #4C566A
+#define nord4 #D8DEE9
+#define nord5 #E5E9F0
+#define nord6 #ECEFF4
+#define nord7 #8FBCBB
+#define nord8 #88C0D0
+#define nord9 #81A1C1
+#define nord10 #5E81AC
+#define nord11 #BF616A
+#define nord12 #D08770
+#define nord13 #EBCB8B
+#define nord14 #A3BE8C
+#define nord15 #B48EAD
+
+*.foreground:   nord4
+*.background:   nord0
+*.cursorColor:  nord4
+*fading: 35
+*fadeColor: nord3
+
+*.color0: nord1
+*.color1: nord11
+*.color2: nord14
+*.color3: nord13
+*.color4: nord9
+*.color5: nord15
+*.color6: nord8
+*.color7: nord5
+*.color8: nord3
+*.color9: nord11
+*.color10: nord14
+*.color11: nord13
+*.color12: nord9
+*.color13: nord15
+*.color14: nord7
+*.color15: nord6
