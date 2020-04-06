@@ -164,7 +164,6 @@ theme.bar_wifi = "#b48ead"
 theme.bar_ethernet = "#5e81ac"
 
 
-
 -- Recolor Layout icons:
 theme = theme_assets.recolor_layout(theme, theme.fg_normal)
 

@@ -47,17 +47,17 @@ local altkey       = "Mod1"
 
 awful.layout.layouts = {
 	awful.layout.suit.tile,
-	--awful.layout.suit.tile.left,
+	-- awful.layout.suit.tile.left,
 	awful.layout.suit.tile.bottom,
-	--awful.layout.suit.tile.top,
+	-- awful.layout.suit.tile.top,
 	awful.layout.suit.fair,
-	--awful.layout.suit.fair.horizontal,
-	--awful.layout.suit.spiral,
-	--awful.layout.suit.spiral.dwindle,
-	awful.layout.suit.max,
-	--awful.layout.suit.max.fullscreen,
-	awful.layout.suit.magnifier,
-	--awful.layout.suit.corner.nw,
+	-- awful.layout.suit.fair.horizontal,
+	-- awful.layout.suit.spiral,
+	-- awful.layout.suit.spiral.dwindle,
+	-- awful.layout.suit.max,
+	-- awful.layout.suit.max.fullscreen,
+	-- awful.layout.suit.magnifier,
+	-- awful.layout.suit.corner.nw,
 	-- awful.layout.suit.corner.ne,
 	-- awful.layout.suit.corner.sw,
 	-- awful.layout.suit.corner.se,
@@ -194,12 +194,12 @@ awful.screen.connect_for_each_screen(function(s)
 		fperc:close()
 
 		--battery
-		fperc = assert(io.popen("acpi | cut -d' ' -f 4 | cut -d% -f 1", "r"))
+		fperc = assert(io.popen("s=0; c=0; for i in `acpi | cut -d' ' -f 4 | cut -d% -f 1`; do s=$(($s+$i)); c=$(($c+1)); done; echo $(($s/$c))", "r"))
 		local perc = fperc:read("*number")
 		fstatus = assert(io.popen("acpi | cut -d: -f 2,2 | cut -d, -f 1,1", "r"))
-		local status = fstatus:read("*l")
+		local status = fstatus:read("*all")
 		bat_bar.value = perc
-		if status == " Charging" then
+		if status:find("Charging") ~= nil then
 			charging_dot.bg = beautiful.bar_bat
 		else
 			charging_dot.bg = beautiful.bar_bg
@@ -216,9 +216,9 @@ awful.screen.connect_for_each_screen(function(s)
 		--network
 		fnet = assert(io.popen("ip r | grep default | head -n 1 | cut -d ' ' -f 5","r"))
 		local iface = fnet:read("*all")
-		if iface:find("enp") ~= nil then
+		if iface:find("en") ~= nil then
 			network_dot.bg = beautiful.bar_ethernet
-		elseif iface:find("wlp") ~= nil then
+		elseif iface:find("wl") ~= nil then
 			network_dot.bg = beautiful.bar_wifi
 		else
 			network_dot.bg = beautiful.bar_bg
@@ -226,10 +226,8 @@ awful.screen.connect_for_each_screen(function(s)
 		fnet:close()
 	end
 
-
 	widgettimer = timer({ timeout = 5 })
 	widgettimer:connect_signal("timeout",update_bars)
-
 	widgettimer:start()
 
 
@@ -376,6 +374,8 @@ awful.key({ modkey }, "z", function () awful.spawn(rofissh) end,
 {description = "Run SSH connection", group = "launcher"}),
 awful.key({ modkey }, "e", function () awful.spawn(rofiwin) end,
 {description = "Show windows", group = "launcher"}),
+awful.key({ }, "Print", function () awful.spawn("flameshot gui") end,
+{description = "screenshot", group = "launcher"}),
 
 
 awful.key({ modkey }, "x",
@@ -539,7 +539,9 @@ awful.rules.rules = {
 			"Tor Browser", -- Needs a fixed window size to avoid fingerprinting by screen size.
 			"Wpa_gui",
 			"veromix",
-			"xtightvncviewer"},
+			"xtightvncviewer",
+			"Maltego",
+			"Vmrc"},
 
 			-- Note that the name property shown in xprop might be set slightly after creation of the client
 			-- and the name shown there might not match defined rules here.
