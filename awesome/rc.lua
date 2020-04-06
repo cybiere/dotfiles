@@ -38,9 +38,9 @@ terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 local browser      = "firefox"
-local rofirun	   = "rofi -show-icons -show drun"
-local rofiwin	   = "rofi -show-icons -show window"
-local rofissh	   = "rofi -show ssh"
+local rofirun	   = "rofi -dpi -show-icons -show drun"
+local rofiwin	   = "rofi -dpi -show-icons -show window"
+local rofissh	   = "rofi -dpi -show ssh"
 
 modkey = "Mod4"
 local altkey       = "Mod1"

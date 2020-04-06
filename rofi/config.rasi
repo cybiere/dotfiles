@@ -1,0 +1,153 @@
+/*
+ *
+ * Author : Aditya Shakya (adi1090x)
+ * Mail : adi1090x@gmail.com
+ * Github : @adi1090x
+ * Reddit : @adi1090x
+ *
+ */
+
+configuration {
+    font:                           "DejaVu Sans 12";
+    show-icons:                     true;
+	icon-theme: 					"Breeze";
+    display-drun: 					"";
+    display-window:					"";
+    display-ssh:					"";
+    drun-display-format:            "{name}";
+    threads:                        0;
+    scroll-method:                  0;
+    disable-history:                false;
+    fullscreen:                     false;
+	hide-scrollbar: 				true;
+	sidebar-mode: 					false;
+}
+
+/* -- Breeze Dark-- */
+* {
+    background:                     #3b4252ff;
+    background-alt:                 #4c566aff;
+    foreground:                     #e5e9f0e6;
+    border:               			#5e81acff;
+    selected:               		#5e81ac66;
+    urgent:                         #d08770FF;
+}
+
+window {
+    transparency:                   "real";
+    background-color:               @background;
+    text-color:                     @foreground;
+    border-radius:                  0px;
+    height:                         55%;
+    width:                          48%;
+    location:                       center;
+    anchor:                         center;
+    x-offset:                       0;
+    y-offset:                       0;
+}
+
+prompt {
+    enabled: 						true;
+	padding: 						0px 8px 0px 4px;
+	background-color: 				@background;
+	text-color: 					@foreground;
+	font:							"DejaVu Sans Mono 16";
+}
+
+
+inputbar {
+    background-color:               @background;
+    text-color:                     @foreground;
+    expand:                         false;
+    border:                  		1px;
+    border-radius:                  2px;
+    border-color:                  	@border;
+    margin:                         0px 0px 0px 0px;
+    padding:                        15px 5px 5px 5px;
+    position:                       center;
+}
+
+
+entry {
+    background-color:               @background;
+    text-color:                     @foreground;
+    placeholder-color:              @foreground;
+    expand:                         true;
+    horizontal-align:               0;
+    placeholder:                    "";
+    blink:                          true;
+}
+
+case-indicator {
+    background-color:               @background;
+    text-color:                     @foreground;
+    spacing:                        0;
+}
+
+
+listview {
+    background-color:               @background;
+    columns:                        6;
+    spacing:                        4px;
+    cycle:                          false;
+    dynamic:                        true;
+    layout:                         vertical;
+}
+
+mainbox {
+    background-color:               @background;
+    children:                       [ inputbar, listview ];
+    spacing:                       	15px;
+    padding:                        8px 8px 8px 8px;
+}
+
+element {
+    background-color:               @background;
+    text-color:                     @foreground;
+    orientation:                    vertical;
+    border-radius:                  4px;
+    padding:                        10px 0px 10px 0px;
+}
+
+element-icon {
+    size:                           128px;
+    border:                         0px;
+}
+
+element-text {
+    expand:                         true;
+    horizontal-align:               0.5;
+    vertical-align:                 0.5;
+    margin:                         5px 10px 0px 10px;
+}
+
+element normal.urgent,
+element alternate.urgent {
+    background-color:               @urgent;
+    text-color:                     @foreground;
+    border-radius:                  9px;
+}
+
+element normal.active,
+element alternate.active {
+    background-color:               @background-alt;
+    text-color:                     @foreground;
+}
+
+element selected {
+    background-color:               @selected;
+    text-color:                     @foreground;
+    border:                  		1px;
+    border-radius:                  2px;
+    border-color:                  	@border;
+}
+
+element selected.urgent {
+    background-color:               @urgent;
+    text-color:                     @foreground;
+}
+
+element selected.active {
+    background-color:               @background-alt;
+    color:                          @foreground;
+}
