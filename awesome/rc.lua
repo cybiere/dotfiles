@@ -238,6 +238,10 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 4, function () awful.layout.inc( 1) end),
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
 
+	s.systray = wibox.widget.systray()
+	s.systray.visible = false
+
+	-- Add widgets to the wibox
 	rightbar = wibox.widget{
 		layout = wibox.layout.fixed.horizontal,
 		s.mypromptbox,
@@ -255,10 +259,6 @@ awful.screen.connect_for_each_screen(function(s)
 		wibox.widget.textbox(" "),
 	}
 
-	s.systray = wibox.widget.systray()
-	s.systray.visible = false
-
-	-- Add widgets to the wibox
 	s.mywibox:setup {
 		layout = wibox.layout.align.horizontal,
 		expand = "none",
