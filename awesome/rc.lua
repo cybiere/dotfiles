@@ -264,8 +264,8 @@ awful.screen.connect_for_each_screen(function(s)
 		expand = "none",
 		{
 			layout = wibox.layout.fixed.horizontal,
-        	s.mylayoutbox,
 			s.mytaglist,
+        	s.mylayoutbox,
 		},
 		mytextclock,
 		rightbar
