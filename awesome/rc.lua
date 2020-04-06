@@ -10,7 +10,7 @@ local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
 require("awful.hotkeys_popup.keys")
 
-awful.util.spawn_with_shell("~/.config/awesome/autostart.sh")
+awful.util.spawn_with_shell(gears.filesystem.get_configuration_dir().."autostart.sh")
 
 if awesome.startup_errors then
 	naughty.notify({ preset = naughty.config.presets.critical,
@@ -32,7 +32,7 @@ do
 	end)
 end
 
-beautiful.init("~/.config/awesome/theme.lua")
+beautiful.init(gears.filesystem.get_configuration_dir().."theme.lua")
 
 terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vim"

@@ -40,8 +40,8 @@ theme.taskbar_height = dpi(26)
 -- beautiful.variable in your rc.lua
 --theme.bg_widget = "#cc0000"
 
-theme.wallpaper = "/home/ncnd/.wp.jpg"
-custom_icon_dir = "/home/ncnd/.config/awesome/icons/"
+theme.wallpaper = os.getenv("HOME").."/.wp.jpg"
+custom_icon_dir = gfs.get_configuration_dir().."icons/"
 
 -- You can use your own layout icons like this:
 theme.layout_fairv = custom_icon_dir.."lay_fair.png"
@@ -57,35 +57,6 @@ theme.taglist_squares_sel = custom_icon_dir.."tag_sel.png"
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
 theme.icon_theme = "breeze-dark"
-
-icon_dir = "/usr/share/icons/"..theme.icon_theme.."/status/24/"
-
-theme.icon_bat = {
-	icon_dir.."battery-000.svg",
-	icon_dir.."battery-010.svg",
-	icon_dir.."battery-020.svg",
-	icon_dir.."battery-030.svg",
-	icon_dir.."battery-040.svg",
-	icon_dir.."battery-050.svg",
-	icon_dir.."battery-060.svg",
-	icon_dir.."battery-070.svg",
-	icon_dir.."battery-080.svg",
-	icon_dir.."battery-090.svg",
-	icon_dir.."battery-100.svg"
-}
-theme.icon_bat_charging = {
-	icon_dir.."battery-000-charging.svg",
-	icon_dir.."battery-010-charging.svg",
-	icon_dir.."battery-020-charging.svg",
-	icon_dir.."battery-030-charging.svg",
-	icon_dir.."battery-040-charging.svg",
-	icon_dir.."battery-050-charging.svg",
-	icon_dir.."battery-060-charging.svg",
-	icon_dir.."battery-070-charging.svg",
-	icon_dir.."battery-080-charging.svg",
-	icon_dir.."battery-090-charging.svg",
-	icon_dir.."battery-100-charging.svg"
-}
 
 -- load vector assets' generators for this theme
 
