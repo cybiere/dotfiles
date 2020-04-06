@@ -231,6 +231,13 @@ awful.screen.connect_for_each_screen(function(s)
 	widgettimer:start()
 
 
+    s.mylayoutbox = awful.widget.layoutbox(s)
+    s.mylayoutbox:buttons(gears.table.join(
+                           awful.button({ }, 1, function () awful.layout.inc( 1) end),
+                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
+                           awful.button({ }, 4, function () awful.layout.inc( 1) end),
+                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+
 	rightbar = wibox.widget{
 		layout = wibox.layout.fixed.horizontal,
 		s.mypromptbox,
@@ -255,7 +262,11 @@ awful.screen.connect_for_each_screen(function(s)
 	s.mywibox:setup {
 		layout = wibox.layout.align.horizontal,
 		expand = "none",
-		s.mytaglist,
+		{
+			layout = wibox.layout.fixed.horizontal,
+        	s.mylayoutbox,
+			s.mytaglist,
+		},
 		mytextclock,
 		rightbar
 	}

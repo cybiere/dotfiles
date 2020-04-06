@@ -44,29 +44,15 @@ theme.wallpaper = "/home/ncnd/.wp.jpg"
 custom_icon_dir = "/home/ncnd/.config/awesome/icons/"
 
 -- You can use your own layout icons like this:
+theme.layout_fairv = custom_icon_dir.."lay_fair.png"
+theme.layout_floating  = custom_icon_dir.."lay_float.png"
+theme.layout_tilebottom = custom_icon_dir.."lay_tilebot.png"
+theme.layout_tile = custom_icon_dir.."lay_tile.png"
 
 theme.taglist_squares_unsel_empty = custom_icon_dir.."tag_empty.png"
 theme.taglist_squares_sel_empty = custom_icon_dir.."tag_sel.png"
 theme.taglist_squares_unsel = custom_icon_dir.."tag_unsel.png"
 theme.taglist_squares_sel = custom_icon_dir.."tag_sel.png"
-
-
-theme.layout_fairh = themes_path.."default/layouts/fairhw.png"
-theme.layout_fairv = themes_path.."default/layouts/fairvw.png"
-theme.layout_floating  = themes_path.."default/layouts/floatingw.png"
-theme.layout_magnifier = themes_path.."default/layouts/magnifierw.png"
-theme.layout_max = themes_path.."default/layouts/maxw.png"
-theme.layout_fullscreen = themes_path.."default/layouts/fullscreenw.png"
-theme.layout_tilebottom = themes_path.."default/layouts/tilebottomw.png"
-theme.layout_tileleft   = themes_path.."default/layouts/tileleftw.png"
-theme.layout_tile = themes_path.."default/layouts/tilew.png"
-theme.layout_tiletop = themes_path.."default/layouts/tiletopw.png"
-theme.layout_spiral  = themes_path.."default/layouts/spiralw.png"
-theme.layout_dwindle = themes_path.."default/layouts/dwindlew.png"
-theme.layout_cornernw = themes_path.."default/layouts/cornernww.png"
-theme.layout_cornerne = themes_path.."default/layouts/cornernew.png"
-theme.layout_cornersw = themes_path.."default/layouts/cornersww.png"
-theme.layout_cornerse = themes_path.."default/layouts/cornersew.png"
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
@@ -100,12 +86,6 @@ theme.icon_bat_charging = {
 	icon_dir.."battery-090-charging.svg",
 	icon_dir.."battery-100-charging.svg"
 }
-theme.icon_bat_charged = icon_dir.."battery-100-charging.svg"
-theme.icon_vol_mute = icon_dir.."audio-volume-muted.svg"
-theme.icon_vol_low = icon_dir.."audio-volume-low.svg"
-theme.icon_vol_med = icon_dir.."audio-volume-medium.svg"
-theme.icon_vol_high = icon_dir.."audio-volume-high.svg"
-theme.icon_light = icon_dir.."redshift-status-on.svg"
 
 -- load vector assets' generators for this theme
 
@@ -163,9 +143,4 @@ theme.bar_light = "#ebcb8b"
 theme.bar_wifi = "#b48ead"
 theme.bar_ethernet = "#5e81ac"
 
-
--- Recolor Layout icons:
-theme = theme_assets.recolor_layout(theme, theme.fg_normal)
-
 return theme
-
