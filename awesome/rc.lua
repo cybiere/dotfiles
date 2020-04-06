@@ -185,7 +185,7 @@ awful.screen.connect_for_each_screen(function(s)
 		fperc = assert(io.popen("pamixer --get-volume", "r"))
 		local perc = fperc:read("*number")
 		volume_bar.value = perc
-		if mute:find("true") == nil then
+		if mute:find("true") ~= nil then
 			volume_bar.color = beautiful.bar_volume_mute
 		else
 			volume_bar.color = beautiful.bar_volume
