@@ -10,7 +10,7 @@
 configuration {
     font:                           "DejaVu Sans 12";
     show-icons:                     true;
-	icon-theme: 					"Breeze";
+	icon-theme: 					"Papirus-Dark";
     display-drun: 					"";
     display-window:					"";
     display-ssh:					"";
