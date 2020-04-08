@@ -8,7 +8,13 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
+local pulse = require("pulseaudio_dbus")
 require("awful.hotkeys_popup.keys")
+
+local address = pulse.get_address()
+local connection = pulse.get_connection(address)
+local core = pulse.get_core(connection)
+local sink = pulse.get_device(connection, core:get_sinks()[1])
 
 awful.util.spawn_with_shell(gears.filesystem.get_configuration_dir().."autostart.sh")
 
@@ -172,6 +178,7 @@ awful.screen.connect_for_each_screen(function(s)
 		}
 	end
 
+
 	local volume_bar = rounded_bar(beautiful.bar_volume)
 	local light_bar = rounded_bar(beautiful.bar_light)
 	local bat_bar = rounded_bar(beautiful.bar_bat)
@@ -180,18 +187,12 @@ awful.screen.connect_for_each_screen(function(s)
 
 	function update_bars()
 		--volume
-		fmute = assert(io.popen("pamixer --get-mute", "r"))
-		local mute = fmute:read("*all")
-		fperc = assert(io.popen("pamixer --get-volume", "r"))
-		local perc = fperc:read("*number")
-		volume_bar.value = perc
-		if mute:find("true") ~= nil then
+		volume_bar.value = sink:get_volume_percent()[1]
+		if sink:is_muted() then
 			volume_bar.color = beautiful.bar_volume_mute
 		else
 			volume_bar.color = beautiful.bar_volume
 		end
-		fmute:close()
-		fperc:close()
 
 		--battery
 		fperc = assert(io.popen("s=0; c=0; for i in `acpi | cut -d' ' -f 4 | cut -d% -f 1`; do s=$(($s+$i)); c=$(($c+1)); done; echo $(($s/$c))", "r"))
@@ -343,9 +344,9 @@ awful.key({ }, "XF86MonBrightnessUp", function () awful.util.spawn("xbacklight -
 awful.key({ }, "XF86MonBrightnessDown", function () awful.util.spawn("xbacklight -dec 5") end,
 {description = "-10%", group = "hotkeys"}),
 awful.key({ modkey, altkey }, "l", function () awful.util.spawn("slock") end),
-awful.key({}, "XF86AudioLowerVolume", function () awful.util.spawn("pamixer -d 5") end),
-awful.key({}, "XF86AudioRaiseVolume", function () awful.util.spawn("pamixer -i 5") end),
-awful.key({}, "XF86AudioMute", function () awful.util.spawn("pamixer -t") end),
+awful.key({}, "XF86AudioLowerVolume", function () sink:volume_down({5}) end),
+awful.key({}, "XF86AudioRaiseVolume", function() sink:volume_up({5}) end),
+awful.key({}, "XF86AudioMute", function () sink:toggle_muted() end),
 awful.key({}, "XF86AudioMicMute", function () awful.util.spawn("amixer set Capture toggle") end),
 
 

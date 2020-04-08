@@ -1,6 +1,4 @@
-#Dotfiles
-
-----
+# Dotfiles
 
 My dotfiles for:
 
@@ -8,3 +6,8 @@ My dotfiles for:
 * AwesomeWM
 * Picom
 * Rofi
+
+# Requirements
+
+* uRXVT
+* [lua-pulseaudio_dbus](https://github.com/stefano-m/lua-pulseaudio_dbus)
