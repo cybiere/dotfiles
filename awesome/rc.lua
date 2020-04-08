@@ -185,6 +185,16 @@ awful.screen.connect_for_each_screen(function(s)
 	local charging_dot = dot_widget()
 	local network_dot = dot_widget()
 
+	local function getIface()
+		local f = io.open("/proc/net/route","r")
+		for l in f:lines() do
+			w = l:sub(1,string.find(l, "%s"))
+			if w:sub(1,5) ~= "Iface" then break end
+		end
+		f:close()
+		return w
+	end
+
 	function update_bars()
 		--volume
 		volume_bar.value = sink:get_volume_percent()[1]
@@ -215,11 +225,10 @@ awful.screen.connect_for_each_screen(function(s)
 		flight:close()
 
 		--network
-		fnet = assert(io.popen("ip r | grep default | head -n 1 | cut -d ' ' -f 5","r"))
-		local iface = fnet:read("*all")
-		if iface:find("en") ~= nil then
+		local iface = getIface()
+		if iface:sub(1,2) == "en" then
 			network_dot.bg = beautiful.bar_ethernet
-		elseif iface:find("wl") ~= nil then
+		elseif iface:sub(1,2) == "wl" then
 			network_dot.bg = beautiful.bar_wifi
 		else
 			network_dot.bg = beautiful.bar_bg
