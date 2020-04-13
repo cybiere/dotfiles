@@ -205,18 +205,21 @@ awful.screen.connect_for_each_screen(function(s)
 		end
 
 		--battery
-		fperc = assert(io.popen("s=0; c=0; for i in `acpi | cut -d' ' -f 4 | cut -d% -f 1`; do s=$(($s+$i)); c=$(($c+1)); done; echo $(($s/$c))", "r"))
-		local perc = fperc:read("*number")
-		fstatus = assert(io.popen("acpi | cut -d: -f 2,2 | cut -d, -f 1,1", "r"))
-		local status = fstatus:read("*all")
-		bat_bar.value = perc
-		if status:find("Charging") ~= nil then
+		fbat = assert(io.popen("acpi", "r"))
+		local out = fbat:read("*all")
+		if out:find("Charging") ~= nil then
 			charging_dot.bg = beautiful.bar_bat
 		else
 			charging_dot.bg = beautiful.bar_bg
 		end
-		fperc:close()
-		fstatus:close()
+		s=0
+		i=0
+		for p in string.gmatch(out,"(%d+)%%") do
+			s = s+p
+			i = i+1
+		end
+		bat_bar.value = math.floor(s/i)
+		fbat:close()
 
 		--light
 		flight = assert(io.popen("xbacklight | cut -d . -f 1", "r"))
