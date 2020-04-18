@@ -205,27 +205,25 @@ awful.screen.connect_for_each_screen(function(s)
 		end
 
 		--battery
-		fbat = assert(io.popen("acpi", "r"))
-		local out = fbat:read("*all")
-		if out:find("Charging") ~= nil then
-			charging_dot.bg = beautiful.bar_bat
-		else
-			charging_dot.bg = beautiful.bar_bg
-		end
-		s=0
-		i=0
-		for p in string.gmatch(out,"(%d+)%%") do
-			s = s+p
-			i = i+1
-		end
-		bat_bar.value = math.floor(s/i)
-		fbat:close()
+		awful.spawn.easy_async_with_shell("acpi",function(out)
+			if out:find("Charging") ~= nil then
+				charging_dot.bg = beautiful.bar_bat
+			else
+				charging_dot.bg = beautiful.bar_bg
+			end
+			s=0
+			i=0
+			for p in string.gmatch(out,"(%d+)%%") do
+				s = s+p
+				i = i+1
+			end
+			bat_bar.value = math.floor(s/i)
+		end)
 
 		--light
-		flight = assert(io.popen("xbacklight | cut -d . -f 1", "r"))
-		local perc = flight:read("*number")
-		light_bar.value = perc
-		flight:close()
+		awful.spawn.easy_async_with_shell("xbacklight",function(out)
+			light_bar.value = tonumber(out)
+		end)
 
 		--network
 		local iface = getIface()
