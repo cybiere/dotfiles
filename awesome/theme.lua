@@ -33,7 +33,8 @@ theme.taskbar_height = dpi(26)
 -- notification_font
 -- notification_[bg|fg]
 -- notification_[width|height|margin]
--- notification_[border_color|border_width|shape|opacity]
+notification_border_width = 0
+notification_font = "DejaVu Sans 16"
 
 -- You can add as many variables as
 -- you wish and access them by using

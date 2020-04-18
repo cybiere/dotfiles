@@ -217,7 +217,13 @@ awful.screen.connect_for_each_screen(function(s)
 				s = s+p
 				i = i+1
 			end
-			bat_bar.value = math.floor(s/i)
+			perc = math.floor(s/i)
+			if perc < 16 then
+				naughty.notify({ 
+				title = "Battery low",
+				text = tostring(perc).."% remaining" })
+			end	
+			bat_bar.value = perc
 		end)
 
 		--light
@@ -242,12 +248,12 @@ awful.screen.connect_for_each_screen(function(s)
 	widgettimer:start()
 
 
-    s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(gears.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
-                           awful.button({ }, 4, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
+	s.mylayoutbox = awful.widget.layoutbox(s)
+	s.mylayoutbox:buttons(gears.table.join(
+	awful.button({ }, 1, function () awful.layout.inc( 1) end),
+	awful.button({ }, 3, function () awful.layout.inc(-1) end),
+	awful.button({ }, 4, function () awful.layout.inc( 1) end),
+	awful.button({ }, 5, function () awful.layout.inc(-1) end)))
 
 	s.systray = wibox.widget.systray()
 	s.systray.visible = false
@@ -276,7 +282,7 @@ awful.screen.connect_for_each_screen(function(s)
 		{
 			layout = wibox.layout.fixed.horizontal,
 			s.mytaglist,
-        	s.mylayoutbox,
+			s.mylayoutbox,
 		},
 		mytextclock,
 		rightbar
