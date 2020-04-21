@@ -44,7 +44,7 @@ terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 local browser      = "firefox"
-local rofirun	   = "rofi -dpi -show-icons -show drun"
+local rofirun	   = "rofi -combi-modi drun,run -modi combi -dpi -show-icons -show combi"
 local rofiwin	   = "rofi -dpi -show-icons -show window"
 local rofissh	   = "rofi -dpi -show ssh"
 
@@ -111,6 +111,8 @@ end
 
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
+
+local bat_warn = 100;
 
 awful.screen.connect_for_each_screen(function(s)
 	-- Wallpaper
@@ -219,9 +221,12 @@ awful.screen.connect_for_each_screen(function(s)
 			end
 			perc = math.floor(s/i)
 			if perc < 16 then
-				naughty.notify({ 
-				title = "Battery low",
-				text = tostring(perc).."% remaining" })
+				if bat_warn > perc then
+					naughty.notify({ 
+					title = "Battery low",
+					text = tostring(perc).."% remaining" })
+					bat_warn = perc
+				end	
 			end	
 			bat_bar.value = perc
 		end)
