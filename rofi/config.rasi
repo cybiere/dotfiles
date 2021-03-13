@@ -1,12 +1,3 @@
-/*
- *
- * Author : Aditya Shakya (adi1090x)
- * Mail : adi1090x@gmail.com
- * Github : @adi1090x
- * Reddit : @adi1090x
- *
- */
-
 configuration {
     font:                           "DejaVu Sans 12";
     show-icons:                     true;
@@ -39,8 +30,7 @@ window {
     background-color:               @background;
     text-color:                     @foreground;
     border-radius:                  0px;
-    height:                         55%;
-    width:                          48%;
+    width:                          34em;
     location:                       center;
     anchor:                         center;
     x-offset:                       0;
@@ -49,7 +39,7 @@ window {
 
 prompt {
     enabled: 						true;
-	padding: 						0px 8px 0px 4px;
+	padding: 						0px 0.5em 0px 0.2em;
 	background-color: 				@background;
 	text-color: 					@foreground;
 	font:							"DejaVu Sans Mono 16";
@@ -60,11 +50,11 @@ inputbar {
     background-color:               @background;
     text-color:                     @foreground;
     expand:                         false;
-    border:                  		1px;
-    border-radius:                  2px;
+    border:                  		0px;
+    border-radius:                  0px;
     border-color:                  	@border;
     margin:                         0px 0px 0px 0px;
-    padding:                        15px 5px 5px 5px;
+    padding:                        0.5em 0.3em 0.3em 0.3em;
     position:                       center;
 }
 
@@ -89,7 +79,8 @@ case-indicator {
 listview {
     background-color:               @background;
     columns:                        6;
-    spacing:                        4px;
+	lines:							1;
+    spacing:                        0.2em;
     cycle:                          false;
     dynamic:                        true;
     layout:                         vertical;
@@ -98,20 +89,20 @@ listview {
 mainbox {
     background-color:               @background;
     children:                       [ inputbar, listview ];
-    spacing:                       	15px;
-    padding:                        8px 8px 8px 8px;
+    spacing:                       	0.3em;
+    padding:                        0.1em 0.8em 0.5em 0.8em;
 }
 
 element {
     background-color:               @background;
     text-color:                     @foreground;
     orientation:                    vertical;
-    border-radius:                  4px;
-    padding:                        10px 0px 10px 0px;
+    border-radius:                  0px;
+    padding:                        0.5em 0em 0.5em 0em;
 }
 
 element-icon {
-    size:                           128px;
+    size:                           3em;
     border:                         0px;
 }
 
@@ -119,14 +110,14 @@ element-text {
     expand:                         true;
     horizontal-align:               0.5;
     vertical-align:                 0.5;
-    margin:                         5px 10px 0px 10px;
+    margin:                         0.5em 1em 0em 1em;
 }
 
 element normal.urgent,
 element alternate.urgent {
     background-color:               @urgent;
     text-color:                     @foreground;
-    border-radius:                  9px;
+    border-radius:                  0;
 }
 
 element normal.active,
@@ -139,7 +130,7 @@ element selected {
     background-color:               @selected;
     text-color:                     @foreground;
     border:                  		1px;
-    border-radius:                  2px;
+    border-radius:                  0;
     border-color:                  	@border;
 }
 

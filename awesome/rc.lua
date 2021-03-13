@@ -8,14 +8,7 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup")
-local pulse = require("pulseaudio_dbus")
 require("awful.hotkeys_popup.keys")
-
-local address = pulse.get_address()
-local connection = pulse.get_connection(address)
-local core = pulse.get_core(connection)
-local sink = pulse.get_device(connection, core:get_sinks()[1])
-
 awful.util.spawn_with_shell(gears.filesystem.get_configuration_dir().."autostart.sh")
 
 if awesome.startup_errors then
@@ -44,9 +37,9 @@ terminal = "urxvt"
 editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 local browser      = "firefox"
-local rofirun	   = "rofi -combi-modi drun,run -modi combi -dpi -show-icons -show combi"
-local rofiwin	   = "rofi -dpi -show-icons -show window"
-local rofissh	   = "rofi -dpi -show ssh"
+local rofirun	   = "rofi -combi-modi drun,run -modi combi -show-icons -show combi"
+local rofiwin	   = "rofi -show-icons -show window"
+local rofissh	   = "rofi -show ssh"
 
 modkey = "Mod4"
 local altkey       = "Mod1"
@@ -112,14 +105,12 @@ end
 -- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
 screen.connect_signal("property::geometry", set_wallpaper)
 
-local bat_warn = 100;
-
 awful.screen.connect_for_each_screen(function(s)
 	-- Wallpaper
 	set_wallpaper(s)
 
 	-- Each screen has its own tag table.
-	awful.tag({ "  ", "  ", "  ", "  ", "  " }, s, awful.layout.layouts[1])
+	awful.tag({ "•", "•", "•", "•", "•" , "•" }, s, awful.layout.layouts[1])
 
 	-- Create a promptbox for each screen
 	s.mypromptbox = awful.widget.prompt()
@@ -140,118 +131,7 @@ awful.screen.connect_for_each_screen(function(s)
 
 
 	-- Create the wibox
-	s.mywibox = awful.wibar({ position = "top", screen = s , height = beautiful.taskbar_height})
-
-
-
-	local function rounded_bar(color)
-		return wibox.widget {
-			max_value     = 100,
-			value         = 0,
-			forced_width  = beautiful.bar_width,
-			margins       = {
-				top = beautiful.bar_margin,
-				bottom = beautiful.bar_margin,
-			},
-			shape         = gears.shape.rounded_bar,
-			border_width  = beautiful.bar_border,
-			color         = color,
-			background_color = beautiful.bar_bg,
-			border_color  = beautiful.bar_bordercolor,
-			widget        = wibox.widget.progressbar,
-		}
-	end
-
-	local function dot_widget()
-		return wibox.widget {
-			{
-				widget = wibox.widget.textbox(" "),
-				forced_width = beautiful.bar_margin
-			},
-			shape              = gears.shape.circle,
-			bg                 = beautiful.bar_bg,
-			shape_border_color = beautiful.bar_bordercolor,
-			shape_border_width = beautiful.bar_border,
-			widget             = wibox.container.background,
-			margins       = {
-				top = beautiful.bar_margin,
-				bottom = beautiful.bar_margin,
-			},
-		}
-	end
-
-
-	local volume_bar = rounded_bar(beautiful.bar_volume)
-	local light_bar = rounded_bar(beautiful.bar_light)
-	local bat_bar = rounded_bar(beautiful.bar_bat)
-	local charging_dot = dot_widget()
-	local network_dot = dot_widget()
-
-	local function getIface()
-		local f = io.open("/proc/net/route","r")
-		for l in f:lines() do
-			w = l:sub(1,string.find(l, "%s"))
-			if w:sub(1,5) ~= "Iface" then break end
-		end
-		f:close()
-		return w
-	end
-
-	function update_bars()
-		--volume
-		volume_bar.value = sink:get_volume_percent()[1]
-		if sink:is_muted() then
-			volume_bar.color = beautiful.bar_volume_mute
-		else
-			volume_bar.color = beautiful.bar_volume
-		end
-
-		--battery
-		awful.spawn.easy_async_with_shell("acpi",function(out)
-			if out:find("Charging") ~= nil then
-				charging_dot.bg = beautiful.bar_bat
-			else
-				charging_dot.bg = beautiful.bar_bg
-			end
-			s=0
-			i=0
-			for p in string.gmatch(out,"(%d+)%%") do
-				s = s+p
-				i = i+1
-			end
-			perc = math.floor(s/i)
-			if perc < 16 then
-				if bat_warn > perc then
-					naughty.notify({ 
-					title = "Battery low",
-					text = tostring(perc).."% remaining" })
-					bat_warn = perc
-				end	
-			end	
-			bat_bar.value = perc
-		end)
-
-		--light
-		awful.spawn.easy_async_with_shell("xbacklight",function(out)
-			light_bar.value = tonumber(out)
-		end)
-
-		--network
-		local iface = getIface()
-		if iface:sub(1,2) == "en" then
-			network_dot.bg = beautiful.bar_ethernet
-		elseif iface:sub(1,2) == "wl" then
-			network_dot.bg = beautiful.bar_wifi
-		else
-			network_dot.bg = beautiful.bar_bg
-		end
-		fnet:close()
-	end
-
-	widgettimer = timer({ timeout = 5 })
-	widgettimer:connect_signal("timeout",update_bars)
-	widgettimer:start()
-
+	s.mywibox = awful.wibar({ position = "bottom", screen = s , height = beautiful.taskbar_height, width = 1200})
 
 	s.mylayoutbox = awful.widget.layoutbox(s)
 	s.mylayoutbox:buttons(gears.table.join(
@@ -261,24 +141,13 @@ awful.screen.connect_for_each_screen(function(s)
 	awful.button({ }, 5, function () awful.layout.inc(-1) end)))
 
 	s.systray = wibox.widget.systray()
-	s.systray.visible = false
 
 	-- Add widgets to the wibox
 	rightbar = wibox.widget{
 		layout = wibox.layout.fixed.horizontal,
 		s.mypromptbox,
+		s.mylayoutbox,
 		s.systray,
-		wibox.widget.textbox(" "),
-		network_dot,
-		wibox.widget.textbox(" "),
-		light_bar,
-		wibox.widget.textbox(" "),
-		volume_bar,
-		wibox.widget.textbox(" "),
-		bat_bar,
-		wibox.widget.textbox(" "),
-		charging_dot,
-		wibox.widget.textbox(" "),
 	}
 
 	s.mywibox:setup {
@@ -287,7 +156,6 @@ awful.screen.connect_for_each_screen(function(s)
 		{
 			layout = wibox.layout.fixed.horizontal,
 			s.mytaglist,
-			s.mylayoutbox,
 		},
 		mytextclock,
 		rightbar

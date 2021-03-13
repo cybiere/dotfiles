@@ -50,10 +50,13 @@ theme.layout_floating  = custom_icon_dir.."lay_float.png"
 theme.layout_tilebottom = custom_icon_dir.."lay_tilebot.png"
 theme.layout_tile = custom_icon_dir.."lay_tile.png"
 
+
+--[[
 theme.taglist_squares_unsel_empty = custom_icon_dir.."tag_empty.png"
 theme.taglist_squares_sel_empty = custom_icon_dir.."tag_sel.png"
 theme.taglist_squares_unsel = custom_icon_dir.."tag_unsel.png"
 theme.taglist_squares_sel = custom_icon_dir.."tag_sel.png"
+]]--
 
 -- Define the icon theme for application icons. If not set then the icons
 -- from /usr/share/icons and /usr/share/icons/hicolor will be used.
@@ -64,6 +67,7 @@ theme.icon_theme = "breeze-dark"
 theme.font          = "DejaVu Sans 12"
 
 theme.bg_normal     = xrdb.background
+--theme.bg_normal     = "#00000000"
 theme.bg_focus      = xrdb.color12
 theme.bg_urgent     = xrdb.color9
 theme.bg_minimize   = xrdb.color8
@@ -84,7 +88,6 @@ theme.border_marked = xrdb.color10
 -- overriding the default one when
 -- defined, the sets are:
 -- taglist_[bg|fg]_[focus|urgent|occupied|empty|volatile]
-theme.taglist_bg_focus = theme.bg_normal
 theme.tasklist_bg_focus = theme.bg_normal
 theme.tasklist_fg_focus = theme.fg_normal
 -- tasklist_[bg|fg]_[focus|urgent]
@@ -102,7 +105,12 @@ theme.tooltip_bg = theme.bg_normal
 -- beautiful.variable in your rc.lua
 --theme.bg_widget = "#cc0000"
 
+theme.taglist_bg_focus = theme.bg_minimize
+theme.taglist_fg_focus = theme.bg_urgent
+theme.taglist_fg_occupied = theme.bg_urgent
+theme.taglist_bg_urgent = theme.bg_urgent
 
+--[[
 theme.bar_margin = dpi(9)
 theme.bar_width = dpi(60)
 theme.bar_border = dpi(0)
@@ -114,5 +122,6 @@ theme.bar_bat = "#d08770"
 theme.bar_light = "#ebcb8b"
 theme.bar_wifi = "#b48ead"
 theme.bar_ethernet = "#5e81ac"
+]]--
 
 return theme

@@ -9,7 +9,7 @@ function run {
 xbacklight = 20%
 run picom
 run autorandr --change
-run blueman-applet
-unclutter -idle 3 -root
-sleep 5
-/home/ncnd/.apps/nextcloud.appimage
+run nm-applet
+run cbatticon
+run unclutter -idle 3 -root
+run pasystray
