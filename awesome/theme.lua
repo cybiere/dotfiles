@@ -105,9 +105,12 @@ theme.tooltip_bg = theme.bg_normal
 -- beautiful.variable in your rc.lua
 --theme.bg_widget = "#cc0000"
 
-theme.taglist_bg_focus = theme.bg_minimize
+theme.taglist_font          = "DejaVu Sans 20"
+theme.taglist_fg_empty = xrdb.color0
+--theme.taglist_bg_focus = theme.bg_minimize
+theme.taglist_bg_focus = theme.bg_normal
 theme.taglist_fg_focus = theme.bg_urgent
-theme.taglist_fg_occupied = theme.bg_urgent
+theme.taglist_fg_occupied = theme.bg_focus
 theme.taglist_bg_urgent = theme.bg_urgent
 
 --[[
