@@ -70,7 +70,12 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 
 -- {{{ Wibar
 -- Create a textclock widget
-mytextclock = wibox.widget.textclock("%H:%M")
+mytextclock = wibox.widget{
+	format = "%H\n%M",
+	align = 'center',
+	valign = 'center',
+	widget = wibox.widget.textclock,
+}
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -131,7 +136,7 @@ awful.screen.connect_for_each_screen(function(s)
 
 
 	-- Create the wibox
-	s.mywibox = awful.wibar({ position = "bottom", screen = s , height = beautiful.taskbar_height, width = 1200})
+	s.mywibox = awful.wibar({ position = "left", screen = s , width = beautiful.taskbar_height, height = 600})
 
 	s.mylayoutbox = awful.widget.layoutbox(s)
 	s.mylayoutbox:buttons(gears.table.join(
@@ -142,21 +147,28 @@ awful.screen.connect_for_each_screen(function(s)
 
 	s.systray = wibox.widget.systray()
 
+	taglist  = wibox.container {
+		s.mytaglist,
+    	direction = 'west',
+    	widget    = wibox.container.rotate,
+	}
+
 	-- Add widgets to the wibox
-	rightbar = wibox.widget{
-		layout = wibox.layout.fixed.horizontal,
+	rightbar= wibox.widget{
+		layout = wibox.layout.fixed.vertical,
 		s.mypromptbox,
 		s.mylayoutbox,
-		s.systray,
+		wibox.container {
+			direction = 'west',
+		    widget    = wibox.container.rotate,
+			s.systray,
+		},
 	}
 
 	s.mywibox:setup {
-		layout = wibox.layout.align.horizontal,
+		layout = wibox.layout.align.vertical,
 		expand = "none",
-		{
-			layout = wibox.layout.fixed.horizontal,
-			s.mytaglist,
-		},
+		taglist,
 		mytextclock,
 		rightbar
 	}
